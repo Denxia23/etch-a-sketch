@@ -4,9 +4,29 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
     <title>etch a sketch</title>
 </head>
 <body>
-    
+   <header>
+    <h1 class="fw-semiBold fs-700 clr-heading-primary">Etch a <span class="clr-heading-neutral">Sketch</span></h1>
+   </header>
+   <main>
+    <div class="half"></div>
+    <div class="whiteboard-container">
+        <nav class="options">
+            <ul role="list">
+                <li><button><div class="selected-color"></div></button></li>
+                <li><button><img src="./img/eraser.png" alt="eraser"></button></li>
+                <li><button><img src="./img/line.png" alt="rainbow line"></button></li>
+                <li><button><img src="./img/restart.svg" alt="restart whiteboard"></button></li>
+            </ul>
+        </nav>
+        <div class="whiteboard center"></div>
+    </div>
+   </main> 
 </body>
 </html>
