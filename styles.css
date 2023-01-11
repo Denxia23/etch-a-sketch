@@ -117,7 +117,8 @@ h1::after {
 
 /* whiteboard-container */
 .whiteboard-container {
-    --whiteboard-width: 600px; 
+    --whiteboard-width: 600px;
+    --whiteboard-gridSize: 72; 
     display: flex;
     position: relative;
     width: 100%;
@@ -153,6 +154,8 @@ h1::after {
     border-radius: 10px;
     background-color: transparent;
     cursor: pointer;
+    transition: 0.15s ease;
+    transition-property: border-color transform;
 }
 
 .options img {
@@ -167,6 +170,11 @@ h1::after {
     margin: 0 auto;
 }
 
+.options button.selected {
+    transform: scale(1.1);
+    border-color: var(--clr-secondary-600);
+}
+
 /* whiteboard */
 .whiteboard {
     display: flex;
@@ -179,7 +187,9 @@ h1::after {
 }
 
 .whiteboard div {
-    flex: 1 1 18.5625px;
-    height: 18.5625px;
+    --a: calc((var(--whiteboard-width) - 6px) / var(--whiteboard-gridSize));
+    flex: 1 1 var(--a);
+    height: var(--a);
     user-select: none;
 }
+

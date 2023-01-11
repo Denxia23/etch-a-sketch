@@ -1,10 +1,27 @@
-function eraseGrid(whiteboard) {
-    whiteboard.replaceChildren();
+let drawing = false;
+let erasing = false;
+let rainbow = false;
+let gridSize = 72;
+let color = "#000000";
+
+function randomInt(min,max) {
+    return Math.random() * (max - min) + min;
+}
+
+
+function restartGrid(divs) {
+    for (const div of divs) {
+        div.style.backgroundColor = "white";
+    }
 }
 
 function draw(e,drawing) {
     if (!drawing) return;
-    e.target.style.backgroundColor = "black";
+    if (rainbow) {
+        e.target.style.backgroundColor = `rgb(${randomInt(0,255)},${randomInt(0,255)},${randomInt(0,255)})`;
+        return;
+    }
+    e.target.style.backgroundColor = color;
 }
 
 function createGrid(whiteboard,squares) {
@@ -16,10 +33,14 @@ function createGrid(whiteboard,squares) {
     }
 }
 
+function eraser(e,drawing) {
+    if (!drawing) return;
+    e.target.style.backgroundColor = "white";
+}
+
 function main() {
-    let drawing = false;
     const whiteboard = document.querySelector("#whiteboard");
-    
+
     whiteboard.addEventListener("mousedown", (e) => {
         drawing = true;
     })
@@ -28,18 +49,58 @@ function main() {
         drawing = false;
     })
     
-    createGrid(whiteboard,32);
+    createGrid(whiteboard,gridSize);
     
     const divs = document.querySelectorAll("#whiteboard div");
+    
     for (const div of divs) {
         div.addEventListener("mousedown", (e) => {
-            draw(e,true);
+            if (!erasing) {
+                draw(e,true);
+            } else {
+                eraser(e,true);
+            }
         })
         
         div.addEventListener("mouseover", (e) => {
-            draw(e,drawing);
+            if (!erasing) {
+                draw(e,drawing);
+            } else {
+                eraser(e,drawing);
+            }
         });
     }
+
+    const restartButton = document.querySelector("#restart");
+    const erasingButton = document.querySelector("#eraser");
+    const rainbowButton = document.querySelector("#rainbow");
+    
+    restartButton.addEventListener("click", () => {
+        restartGrid(divs);
+    })
+
+    erasingButton.addEventListener("click", () => {
+        if (!erasing) {
+            erasing = true;
+        } else {
+            erasing = false;
+        }
+        erasingButton.classList.toggle("selected");
+        rainbowButton.classList.remove("selected");
+        rainbow = false;
+    })
+
+    rainbowButton.addEventListener("click", () => {
+        if (!rainbow) {
+            rainbow = true;
+        } else {
+            rainbow = false;
+        }
+        rainbowButton.classList.toggle("selected");
+        erasingButton.classList.remove("selected");
+        erasing = false;
+
+    })
 
 }
 
