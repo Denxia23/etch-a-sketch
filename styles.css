@@ -2,7 +2,9 @@
 :root {
     --clr-primary-700: #A26DDE;
     --clr-neutral-100: #FFFFFF;
+    --clr-neutral-200: #FAFAFA;
     --clr-secondary-600: #7E74EC;
+    --clr-secondary-500: #B2ACF4;
 
     --clr-txt-400: #5D5D60;
     --clr-txt-600: #353535;
@@ -93,7 +95,7 @@ ol[role="list"] {
 body {
     min-height: 100vh;
     font-family: var(--ff-primary);
-    padding-top: 30px;
+    padding-top: 60px;
 }
 
 h1 {
@@ -102,7 +104,8 @@ h1 {
 }
 
 /* half */
-.half {
+h1::after {
+    content: '';
     position: absolute;
     top: 0;
     right: 0;
@@ -116,8 +119,11 @@ h1 {
 .whiteboard-container {
     --whiteboard-width: 600px; 
     display: flex;
+    position: relative;
+    width: 100%;
     align-items: flex-start;
     gap: 30px;
+    margin-top: 40px;
 }
 
 /* options */
@@ -141,21 +147,21 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 80px;
-    height: 80px;
-    border: 5px solid var(--clr-secondary-600);
-    border-radius: 3px;
+    width: 85px;
+    height: 85px;
+    border: 5px solid var(--clr-secondary-500);
+    border-radius: 10px;
     background-color: transparent;
+    cursor: pointer;
 }
 
 .options img {
     width: 70%;
 }
 
-
 .options .selected-color {
-    width: 55%;
-    height: 55%;
+    width: 50%;
+    height: 50%;
     background-color: black;
     border-radius: 100%;
     margin: 0 auto;
@@ -163,8 +169,17 @@ h1 {
 
 /* whiteboard */
 .whiteboard {
+    display: flex;
+    flex-wrap: wrap;
     background-color: white;
+    margin: 0 auto;
     width: var(--whiteboard-width);
     height: var(--whiteboard-width);
     border: 3px solid var(--clr-txt-600);
+}
+
+.whiteboard div {
+    flex: 1 1 18.5625px;
+    height: 18.5625px;
+    user-select: none;
 }
