@@ -70,10 +70,20 @@ function main() {
             }
         });
     }
-
-    const restartButton = document.querySelector("#restart");
+   
+    const pencilButton = document.querySelector("#pencil"); 
     const erasingButton = document.querySelector("#eraser");
     const rainbowButton = document.querySelector("#rainbow");
+    const restartButton = document.querySelector("#restart");
+    
+    pencilButton.classList.add("selected");
+    
+
+    pencilButton.addEventListener("click", () => {
+        pencilButton.classList.add("selected");
+        erasingButton.classList.remove("selected");
+    })
+    
     
     restartButton.addEventListener("click", () => {
         restartGrid(divs);
@@ -85,7 +95,8 @@ function main() {
         } else {
             erasing = false;
         }
-        erasingButton.classList.toggle("selected");
+        erasingButton.classList.add("selected");
+        pencilButton.classList.remove("selected");
         rainbowButton.classList.remove("selected");
         rainbow = false;
     })
@@ -97,6 +108,7 @@ function main() {
             rainbow = false;
         }
         rainbowButton.classList.toggle("selected");
+        pencilButton.classList.add("selected");
         erasingButton.classList.remove("selected");
         erasing = false;
 
