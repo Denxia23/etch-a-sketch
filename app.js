@@ -1,11 +1,11 @@
 let drawing = false;
 let erasing = false;
 let rainbow = false;
-let gridSize = 72;
+let gridSize = 80;
 let color = "#000000";
 
 function randomInt(min,max) {
-    return Math.random() * (max - min) + min;
+    return Math.floor(Math.random() * (max - min) + min);
 }
 
 
@@ -39,8 +39,10 @@ function eraser(e,drawing) {
 }
 
 function main() {
+    //whiteboard
+    const whiteboardContainer = document.querySelector(".whiteboard-container");
     const whiteboard = document.querySelector("#whiteboard");
-
+    
     whiteboard.addEventListener("mousedown", (e) => {
         drawing = true;
     })
@@ -52,6 +54,8 @@ function main() {
     createGrid(whiteboard,gridSize);
     
     const divs = document.querySelectorAll("#whiteboard div");
+    
+    whiteboardContainer.style.setProperty("--whiteboard-gridSize", gridSize);
     
     for (const div of divs) {
         div.addEventListener("mousedown", (e) => {
@@ -71,16 +75,26 @@ function main() {
         });
     }
    
+    
+    //buttons
+    const colorPicker = document.querySelector(".selected-color");
+    const colorPickerCircle = document.querySelector(".options ul li button div");
     const pencilButton = document.querySelector("#pencil"); 
     const erasingButton = document.querySelector("#eraser");
     const rainbowButton = document.querySelector("#rainbow");
     const restartButton = document.querySelector("#restart");
     
+    colorPicker.addEventListener("change", () => {
+        color = colorPicker.value;
+        colorPickerCircle.style.backgroundColor = `${colorPicker.value}`;
+    })
+    
+    
     pencilButton.classList.add("selected");
     
-
     pencilButton.addEventListener("click", () => {
         pencilButton.classList.add("selected");
+        erasing = false;
         erasingButton.classList.remove("selected");
     })
     

@@ -163,13 +163,28 @@ h1::after {
     width: 70%;
 }
 
+.options ul li:first-child button {
+    position: relative;
+}
+
 .options .selected-color {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    width: calc(100% + 10px);
+    height: calc(100% + 10px);
+}
+
+
+.options .selected-color + div {
     width: 50%;
     height: 50%;
     background-color: black;
     border-radius: 100%;
     margin: 0 auto;
 }
+
+
 
 .options button.selected {
     transform: scale(1.1);
