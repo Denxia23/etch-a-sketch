@@ -19,7 +19,6 @@
     --fs-400: 1.75rem;
     --fs-500: 2.375rem;
     --fs-700: 4rem;
-
 }
 
 /* utility classes */
@@ -63,6 +62,7 @@
     color: var(--clr-txt-600);
 }
 
+
 .center {
     position: absolute;
     left: 50%;
@@ -95,8 +95,11 @@ ol[role="list"] {
 body {
     min-height: 100vh;
     font-family: var(--ff-primary);
-    padding-top: 60px;
     overflow: hidden;
+}
+
+header {
+    padding-top: 60px;
 }
 
 h1 {
@@ -119,7 +122,7 @@ h1::after {
 /* whiteboard-container */
 .whiteboard-container {
     --whiteboard-width: 600px;
-    --whiteboard-gridSize: 72; 
+    --whiteboard-gridSize: 75; 
     display: flex;
     position: relative;
     width: 100%;
@@ -130,13 +133,9 @@ h1::after {
 
 /* options */
 .options {
-    --translateX: calc(-100% - (var(--whiteboard-width) / 2) - 60px);
-    --translateY: calc((var(--whiteboard-width) / -2));
     position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(var(--translateX),var(--translateY));
-
+    left: calc(50% - (var(--whiteboard-width) / 2) - 145px);
+    top: 0;
 }
 
 .options ul {
@@ -185,6 +184,15 @@ h1::after {
 }
 
 
+.options ul li:last-child {
+    position: fixed;
+    bottom: 0;
+    left: 0px;
+}
+
+.options ul li:last-child button {
+    border: none;
+}
 
 .options button.selected {
     transform: scale(1.1);
@@ -193,8 +201,9 @@ h1::after {
 
 /* whiteboard */
 .whiteboard {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(var(--whiteboard-gridSize),1fr);
+    grid-template-rows: repeat(var(--whiteboard-gridSize),1fr);
     background-color: white;
     margin: 0 auto;
     width: var(--whiteboard-width);
@@ -203,9 +212,65 @@ h1::after {
 }
 
 .whiteboard div {
-    --a: calc((var(--whiteboard-width) - 6px) / var(--whiteboard-gridSize));
-    flex: 1 1 var(--a);
-    height: var(--a);
     user-select: none;
 }
+
+/* settings */
+.settings-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--clr-neutral-200);
+    width: 80%;
+    height: 60%;
+}
+
+.grid-size {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+}
+
+.grid-size h2 {
+    letter-spacing: 0.3325rem;
+}
+
+.grid-size h3 {
+    letter-spacing: 0.245rem;
+}
+
+.range {
+    display: flex;
+    position: relative;
+    gap: 20px;
+    width: 50%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.range .selected-size {
+    position: absolute;
+    top: -45px;
+}
+
+.range-input {
+    width: 100%;
+    display: flex;
+    gap: 30px;
+}
+
+.range-input input {
+    width: 100%;
+}
+
+.close-settings {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 50px;
+    height: 50px;
+}
+
 

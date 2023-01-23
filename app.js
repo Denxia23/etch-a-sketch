@@ -1,7 +1,7 @@
 let drawing = false;
 let erasing = false;
 let rainbow = false;
-let gridSize = 80;
+let gridSize = 32;
 let color = "#000000";
 
 function randomInt(min,max) {
