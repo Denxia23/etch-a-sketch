@@ -9,7 +9,8 @@ function randomInt(min,max) {
 }
 
 
-function restartGrid(divs) {
+function restartGrid() {
+    const divs = document.querySelectorAll("#whiteboard div");
     for (const div of divs) {
         div.style.backgroundColor = "white";
     }
@@ -28,6 +29,24 @@ function createGrid(whiteboard,squares) {
     for (let i = 0; i < squares; i++) {
         for (let i2 = 0; i2 < squares; i2++) {
             const gridSquare = document.createElement("div");
+            
+            
+            gridSquare.addEventListener("mousedown", (e) => {
+                if (!erasing) {
+                    draw(e,true);
+                } else {
+                    eraser(e,true);
+                }
+            })
+            
+            gridSquare.addEventListener("mouseover", (e) => {
+                if (!erasing) {
+                    draw(e,drawing);
+                } else {
+                    eraser(e,drawing);
+                }
+            });
+
             whiteboard.appendChild(gridSquare);
         }
     }
@@ -53,28 +72,7 @@ function main() {
     
     createGrid(whiteboard,gridSize);
     
-    const divs = document.querySelectorAll("#whiteboard div");
-    
     whiteboardContainer.style.setProperty("--whiteboard-gridSize", gridSize);
-    
-    for (const div of divs) {
-        div.addEventListener("mousedown", (e) => {
-            if (!erasing) {
-                draw(e,true);
-            } else {
-                eraser(e,true);
-            }
-        })
-        
-        div.addEventListener("mouseover", (e) => {
-            if (!erasing) {
-                draw(e,drawing);
-            } else {
-                eraser(e,drawing);
-            }
-        });
-    }
-   
     
     //buttons
     const colorPicker = document.querySelector(".selected-color");
@@ -83,12 +81,16 @@ function main() {
     const erasingButton = document.querySelector("#eraser");
     const rainbowButton = document.querySelector("#rainbow");
     const restartButton = document.querySelector("#restart");
+    const settingsButton = document.querySelector("#settings");
+    const settingsMenu = document.querySelector(".settings-container");
+    const gridSizeInput = document.querySelector(".range-input input");
+    const selectedGridSize = document.querySelector(".range .selected-size h3");
+    const closeButton = document.querySelector("#close");
     
     colorPicker.addEventListener("change", () => {
         color = colorPicker.value;
-        colorPickerCircle.style.backgroundColor = `${colorPicker.value}`;
+        colorPickerCircle.style.backgroundColor = colorPicker.value;
     })
-    
     
     pencilButton.classList.add("selected");
     
@@ -98,9 +100,8 @@ function main() {
         erasingButton.classList.remove("selected");
     })
     
-    
     restartButton.addEventListener("click", () => {
-        restartGrid(divs);
+        restartGrid();
     })
 
     erasingButton.addEventListener("click", () => {
@@ -128,6 +129,28 @@ function main() {
 
     })
 
+    settingsButton.addEventListener("click", () => {
+        settingsMenu.classList.add("open");
+    })
+    
+    closeButton.addEventListener("click", () => {
+        settingsMenu.classList.remove("open");
+    })
+
+
+    gridSizeInput.addEventListener("input", () => {
+        selectedGridSize.textContent = gridSizeInput.value;
+        
+    })
+
+    gridSizeInput.addEventListener("change", () => {
+        gridSize = gridSizeInput.value;
+        whiteboardContainer.style.setProperty("--whiteboard-gridSize", gridSize);
+        whiteboard.replaceChildren();
+        createGrid(whiteboard,gridSize);
+    })
+
+    
 }
 
 main();

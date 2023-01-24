@@ -45,21 +45,23 @@
             </nav>
             <div class="whiteboard" id="whiteboard"></div>
         </div>
-        <div class="settings-menu center">
-            <div class="grid-size">
-                <h2 class="fs-500 crl-txt-400 fw-regular">Grid Size</h2>
-                <div class="range">
-                    <div class="selected-size">
-                        <h3 class="fs-400 clr-txt-500 fw-regular">75</h3>
-                    </div>
-                    <div class="range-input">
-                        <h3 class="fs-400 clr-txt-500 fw-light">16</h3>
-                        <input type="range" min="16" max="100">
-                        <h3 class="fs-400 clr-txt-500 fw-light">16</h3>
+        <div class="settings-container">
+            <div class="settings-menu center">
+                <div class="grid-size">
+                    <h2 class="fs-500 crl-txt-400 fw-regular">Grid Size</h2>
+                    <div class="range">
+                        <div class="selected-size">
+                            <h3 class="fs-400 clr-txt-500 fw-regular">32</h3>
+                        </div>
+                        <div class="range-input">
+                            <h3 class="fs-400 clr-txt-500 fw-light">16</h3>
+                            <input type="range" min="16" max="100" value="32">
+                            <h3 class="fs-400 clr-txt-500 fw-light">100</h3>
+                        </div>
                     </div>
                 </div>
+                <button class="close-settings" id="close"><img src="./img/close.png" alt="close" draggable="false"></button>  
             </div>
-            <div class="close-settings"><img src="./img/close.png" alt="close" draggable="false"></div>  
         </div>
     </main>
 </body>
