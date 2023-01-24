@@ -8,6 +8,31 @@ function randomInt(min,max) {
     return Math.floor(Math.random() * (max - min) + min);
 }
 
+function createGrid(whiteboard,squares) {
+    for (let i = 0; i < squares; i++) {
+        for (let i2 = 0; i2 < squares; i2++) {
+            const gridSquare = document.createElement("div");
+            
+            gridSquare.addEventListener("mousedown", (e) => {
+                if (!erasing) {
+                    draw(e,true);
+                } else {
+                    erase(e,true);
+                }
+            })
+
+            gridSquare.addEventListener("mouseover", (e) => {
+                if (!erasing) {
+                    draw(e,drawing);
+                } else {
+                    erase(e,drawing);
+                }
+            });
+
+            whiteboard.appendChild(gridSquare);
+        }
+    }
+}
 
 function restartGrid() {
     const divs = document.querySelectorAll("#whiteboard div");
@@ -25,34 +50,7 @@ function draw(e,drawing) {
     e.target.style.backgroundColor = color;
 }
 
-function createGrid(whiteboard,squares) {
-    for (let i = 0; i < squares; i++) {
-        for (let i2 = 0; i2 < squares; i2++) {
-            const gridSquare = document.createElement("div");
-            
-            
-            gridSquare.addEventListener("mousedown", (e) => {
-                if (!erasing) {
-                    draw(e,true);
-                } else {
-                    eraser(e,true);
-                }
-            })
-            
-            gridSquare.addEventListener("mouseover", (e) => {
-                if (!erasing) {
-                    draw(e,drawing);
-                } else {
-                    eraser(e,drawing);
-                }
-            });
-
-            whiteboard.appendChild(gridSquare);
-        }
-    }
-}
-
-function eraser(e,drawing) {
+function erase(e,drawing) {
     if (!drawing) return;
     e.target.style.backgroundColor = "white";
 }
@@ -62,6 +60,7 @@ function main() {
     const whiteboardContainer = document.querySelector(".whiteboard-container");
     const whiteboard = document.querySelector("#whiteboard");
     
+    //whiteboard event listeners
     whiteboard.addEventListener("mousedown", (e) => {
         drawing = true;
     })
@@ -70,22 +69,18 @@ function main() {
         drawing = false;
     })
     
+    //create grid
     createGrid(whiteboard,gridSize);
-    
+    //set gridSize CSS variable to default value
     whiteboardContainer.style.setProperty("--whiteboard-gridSize", gridSize);
     
-    //buttons
+    //drawing options
     const colorPicker = document.querySelector(".selected-color");
     const colorPickerCircle = document.querySelector(".options ul li button div");
     const pencilButton = document.querySelector("#pencil"); 
     const erasingButton = document.querySelector("#eraser");
     const rainbowButton = document.querySelector("#rainbow");
     const restartButton = document.querySelector("#restart");
-    const settingsButton = document.querySelector("#settings");
-    const settingsMenu = document.querySelector(".settings-container");
-    const gridSizeInput = document.querySelector(".range-input input");
-    const selectedGridSize = document.querySelector(".range .selected-size h3");
-    const closeButton = document.querySelector("#close");
     
     colorPicker.addEventListener("change", () => {
         color = colorPicker.value;
@@ -100,10 +95,6 @@ function main() {
         erasingButton.classList.remove("selected");
     })
     
-    restartButton.addEventListener("click", () => {
-        restartGrid();
-    })
-
     erasingButton.addEventListener("click", () => {
         if (!erasing) {
             erasing = true;
@@ -128,7 +119,17 @@ function main() {
         erasing = false;
 
     })
-
+    
+    restartButton.addEventListener("click", restartGrid)
+    
+    //settings 
+    const settingsButton = document.querySelector("#settings");
+    const settingsMenu = document.querySelector(".settings-container");
+    const gridSizeInput = document.querySelector(".range-input input");
+    const selectedGridSize = document.querySelector(".range .selected-size h3");
+    const closeButton = document.querySelector("#close");
+    
+    
     settingsButton.addEventListener("click", () => {
         settingsMenu.classList.add("open");
     })
@@ -137,10 +138,8 @@ function main() {
         settingsMenu.classList.remove("open");
     })
 
-
     gridSizeInput.addEventListener("input", () => {
-        selectedGridSize.textContent = gridSizeInput.value;
-        
+        selectedGridSize.textContent = gridSizeInput.value;  
     })
 
     gridSizeInput.addEventListener("change", () => {
@@ -149,8 +148,6 @@ function main() {
         whiteboard.replaceChildren();
         createGrid(whiteboard,gridSize);
     })
-
-    
 }
 
 main();
